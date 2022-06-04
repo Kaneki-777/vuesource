@@ -2,20 +2,34 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 10:31:47
- * @LastEditTime: 2022-05-29 10:50:37
+ * @LastEditTime: 2022-06-04 15:55:27
 -->
 <template>
-  <div>登录123</div>
+  <div class="login">
+    <login-panel></login-panel>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import LoginPanel from './cpns/login-panel.vue'
 export default defineComponent({
+  components: {
+    LoginPanel
+  },
   setup() {
     return {}
   }
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+.login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background: url('../../assets/img/login-bg.svg');
+}
+</style>
