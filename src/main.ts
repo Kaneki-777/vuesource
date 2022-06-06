@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 08:54:17
- * @LastEditTime: 2022-06-04 16:20:19
+ * @LastEditTime: 2022-06-06 11:59:53
  */
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
@@ -14,8 +14,8 @@ import App from './App.vue'
 
 import router from './router'
 import store from './store'
-import hyRequest from './service'
-
+// import hyRequest from './service'
+import { setupStore } from './store'
 // import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 const app = createApp(App)
 // for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
@@ -24,6 +24,7 @@ const app = createApp(App)
 app.use(router)
 app.use(store)
 app.use(ElementPlus)
+setupStore()
 app.mount('#app')
 
 // hyRequest.request({
@@ -41,18 +42,17 @@ app.mount('#app')
 //   }
 // })
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
-hyRequest
-  .get<DataType>({
-    url: '/home/multidata',
-    showLoading: true
-  })
-  .then((res) => {
-    console.log(res.data)
-    console.log(res.returnCode)
-    console.log(res.success)
-  })
+// interface DataType {
+//   data: any
+//   success: boolean
+// }
+// hyRequest
+//   .get<DataType>({
+//     url: '/home/multidata',
+//     showLoading: true
+//   })
+//   .then((res) => {
+//     // console.log(res.data)
+//     // console.log(res.returnCode)
+//     console.log(res.success)
+//   })

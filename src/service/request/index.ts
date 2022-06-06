@@ -32,7 +32,7 @@ class Hyrequest {
     // 添加所有的实例都有的拦截器
     this.instance.interceptors.request.use(
       (config) => {
-        console.log('所有的实例，请求成功')
+        // console.log('所有的实例，请求成功')
 
         if (this.showLoading) {
           this.loading = ElLoading.service({
@@ -44,13 +44,13 @@ class Hyrequest {
         return config
       },
       (err) => {
-        console.log('所有的实例，请求失败')
+        // console.log('所有的实例，请求失败')
         return err
       }
     )
     this.instance.interceptors.response.use(
       (res) => {
-        console.log('所有的实例，响应成功')
+        // console.log('所有的实例，响应成功')
 
         // 将loading移除
         this.loading?.close()
@@ -63,14 +63,14 @@ class Hyrequest {
         }
       },
       (err) => {
-        console.log('所有的实例，响应失败')
+        // console.log('所有的实例，响应失败')
 
         // 将loading移除
         this.loading?.close()
 
         // 例子: 判断不同的HttpErrorCode显示不同的错误信息
         if (err.response.status === 404) {
-          console.log('404')
+          // console.log('404')
         }
         return err
       }
@@ -92,7 +92,7 @@ class Hyrequest {
           if (config.interceptors?.responseInterceptor) {
             res = config.interceptors.responseInterceptor(res)
           }
-          console.log(res)
+          // console.log(res)
 
           // 2.将showLoading设置true, 这样不会影响下一个请求
           this.showLoading = DEAFULT_LOADING

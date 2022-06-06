@@ -2,11 +2,12 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-02 09:59:27
- * @LastEditTime: 2022-06-02 17:52:59
+ * @LastEditTime: 2022-06-06 11:54:40
  */
 // service统一出口
 import Hyrequest from './request'
 import { BASE_URL, TIME_OUT } from './request/config'
+import localCache from '@/utils/cache'
 
 const hyRequest = new Hyrequest({
   baseURL: BASE_URL,
@@ -14,23 +15,24 @@ const hyRequest = new Hyrequest({
   interceptors: {
     requestInterceptor: (config: any) => {
       // 携带token
-      const token = ''
+      const token = localCache.getCache('token')
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
+        console.log(token)
       }
-      console.log('请求成功的拦截')
+      // console.log('请求成功的拦截')
       return config
     },
     requestInterceptorCatch: (err) => {
-      console.log('请求失败的拦截')
+      // console.log('请求失败的拦截')
       return err
     },
     responseInterceptor: (res) => {
-      console.log('响应成功的拦截')
+      // console.log('响应成功的拦截')
       return res
     },
     responseInterceptorCatch: (err) => {
-      console.log('响应失败的拦截')
+      // console.log('响应失败的拦截')
       return err
     }
   }
