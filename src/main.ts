@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 08:54:17
- * @LastEditTime: 2022-06-06 11:59:53
+ * @LastEditTime: 2022-06-07 16:43:37
  */
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
@@ -21,10 +21,12 @@ const app = createApp(App)
 // for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 //   app.component(key, component as any)
 // }
-app.use(router)
+
 app.use(store)
 app.use(ElementPlus)
 setupStore()
+// path: /user => user
+app.use(router)
 app.mount('#app')
 
 // hyRequest.request({

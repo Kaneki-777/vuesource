@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-05 10:08:41
- * @LastEditTime: 2022-06-06 12:12:39
+ * @LastEditTime: 2022-06-07 11:37:10
  */
 import { Module } from 'vuex'
 
@@ -16,7 +16,7 @@ import { IAccount } from '@/service/login/type'
 import { ILoginState } from './types'
 import { IRootState } from '../types'
 import localCache from '@/utils/cache'
-
+import { mapMenusToRoutes } from '@/utils/map-menus'
 import router from '@/router'
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -36,6 +36,13 @@ const loginModule: Module<ILoginState, IRootState> = {
     },
     changeUserMenus(state, userMenus: any) {
       state.userMenus = userMenus
+
+      // userMenus => routes
+      const routes = mapMenusToRoutes(userMenus)
+      // 将routes => router.main.children
+      routes.forEach((route) => {
+        router.addRoute('main', route)
+      })
     }
   },
   getters: {},
