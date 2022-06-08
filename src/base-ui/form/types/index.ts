@@ -2,11 +2,12 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 15:02:34
- * @LastEditTime: 2022-06-07 15:35:51
+ * @LastEditTime: 2022-06-08 10:29:33
  */
 type IFormType = 'input' | 'password' | 'select' | 'datepicker'
 
 export interface IFormItem {
+  field: string
   type: IFormType
   label: string
   rules?: any[]

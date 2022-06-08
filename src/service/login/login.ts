@@ -2,10 +2,11 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-05 11:26:57
- * @LastEditTime: 2022-06-06 11:21:28
+ * @LastEditTime: 2022-06-08 15:45:36
  */
 import hyRequest from '../index'
-import { IAccount, ILoginResult, IDataType } from './type'
+import { IAccount, ILoginResult } from './type'
+import { IDataType } from '../types'
 
 enum LoginAPI {
   AccountLogin = '/login',

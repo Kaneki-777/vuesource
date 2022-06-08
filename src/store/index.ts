@@ -2,11 +2,12 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 10:51:32
- * @LastEditTime: 2022-06-06 16:10:21
+ * @LastEditTime: 2022-06-08 15:02:30
  */
 import { createStore, Store, useStore as useVuexStore } from 'vuex'
 
 import login from './login/login'
+import system from './main/system/system'
 
 import { IRootState, IStoreType } from './types'
 
@@ -21,7 +22,8 @@ const store = createStore<IRootState>({
   getters: {},
   actions: {},
   modules: {
-    login
+    login,
+    system
   }
 })
 

@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-02 09:59:27
- * @LastEditTime: 2022-06-06 11:54:40
+ * @LastEditTime: 2022-06-08 15:31:48
  */
 // service统一出口
 import Hyrequest from './request'
@@ -18,7 +18,6 @@ const hyRequest = new Hyrequest({
       const token = localCache.getCache('token')
       if (token) {
         config.headers.Authorization = `Bearer ${token}`
-        console.log(token)
       }
       // console.log('请求成功的拦截')
       return config
