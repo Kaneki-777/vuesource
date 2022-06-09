@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-08 14:57:22
- * @LastEditTime: 2022-06-09 14:55:45
+ * @LastEditTime: 2022-06-09 22:48:20
  */
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
@@ -17,7 +17,11 @@ const systemModule: Module<ISystemState, IRootState> = {
       usersList: [],
       usersCount: 0,
       roleList: [],
-      roleCount: 0
+      roleCount: 0,
+      goodsList: [],
+      goodsCount: 0,
+      menuList: [],
+      menuCount: 0
     }
   },
   mutations: {
@@ -32,19 +36,29 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeRoleCount(state, Count: number) {
       state.roleCount = Count
+    },
+    changeGoodsList(state, list: any[]) {
+      state.goodsList = list
+    },
+    changeGoodsCount(state, count: number) {
+      state.goodsCount = count
+    },
+    changeMenuList(state, list: any[]) {
+      state.menuList = list
+    },
+    changeMenuCount(state, count: number) {
+      state.menuCount = count
     }
   },
   getters: {
     pageListData(state) {
       return (pageName: string) => {
         return (state as any)[`${pageName}List`]
-        // console.log(pageName)
-        // switch (pageName) {
-        //   case 'users':
-        //     return state.usersList
-        //   case 'role':
-        //     return state.roleList
-        // }
+      }
+    },
+    pageListCount(state) {
+      return (pageName: string) => {
+        return (state as any)[`${pageName}Count`]
       }
     }
   },
@@ -62,8 +76,11 @@ const systemModule: Module<ISystemState, IRootState> = {
       //     pageUrl = '/role/list'
       //     break
       // }
+      console.log(pageUrl)
+
       // 2.对页面发送请求
       const pageResult = await getPageListData(pageUrl, payload.queryInfo)
+      console.log(payload.queryInfo)
 
       // 3.将数据存储到state中
       const { list, totalCount } = pageResult.data
