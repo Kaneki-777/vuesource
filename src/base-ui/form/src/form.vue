@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 15:02:26
- * @LastEditTime: 2022-06-08 11:17:31
+ * @LastEditTime: 2022-06-09 15:15:03
 -->
 <template>
   <div class="hy-form">
@@ -97,7 +97,12 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const formData = ref({ ...props.modelValue })
-
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        formData.value = { ...newValue }
+      }
+    )
     watch(formData, (newValue) => emit('update:modelValue', newValue), {
       deep: true
     })

@@ -2,11 +2,37 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-08 16:38:27
- * @LastEditTime: 2022-06-08 17:02:45
+ * @LastEditTime: 2022-06-09 14:23:40
 -->
 <template>
   <div class="hy-table">
-    <el-table :data="listData" border style="width: 100%">
+    <div class="header">
+      <slot name="header">
+        <div class="title">{{ title }}</div>
+        <div class="handler">
+          <slot name="headerHandler"></slot>
+        </div>
+      </slot>
+    </div>
+    <el-table
+      :data="listData"
+      border
+      style="width: 100%"
+      @selection-change="handleSelectionChange"
+    >
+      <el-table-column
+        v-if="showSelectColumm"
+        type="selection"
+        width="60"
+        align="center"
+      ></el-table-column>
+      <el-table-column
+        v-if="showIndexColumn"
+        label="序号"
+        type="index"
+        align="center"
+        width="80"
+      ></el-table-column>
       <template v-for="propItem in propList" :key="propItem.prop">
         <el-table-column v-bind="propItem" align="center">
           <template #default="scope">
@@ -17,14 +43,35 @@
         </el-table-column>
       </template>
     </el-table>
+
+    <div class="footer">
+      <slot name="footer">
+        <!-- <el-pagination
+          v-model:currentPage="currentPage4"
+          v-model:page-size="pageSize4"
+          :page-sizes="[100, 200, 300, 400]"
+          :small="small"
+          :disabled="disabled"
+          :background="background"
+          layout="total, sizes, prev, pager, next, jumper"
+          :total="400"
+          @size-change="handleSizeChange"
+          @current-change="handleCurrentChange"
+        /> -->
+      </slot>
+    </div>
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue'
 
 export default defineComponent({
   props: {
+    title: {
+      type: String,
+      default: ''
+    },
     listData: {
       type: Array,
       require: true
@@ -32,11 +79,51 @@ export default defineComponent({
     propList: {
       type: Array,
       require: true
+    },
+    showIndexColumn: {
+      type: Boolean,
+      default: false
+    },
+    showSelectColumm: {
+      type: Boolean,
+      default: false
     }
   },
-  setup() {
-    return {}
+  emits: ['selectionChange'],
+  setup(props, { emit }) {
+    const handleSelectionChange = (value: any) => {
+      console.log(value, '1123123123')
+      emit('selectionChange', 'sss', value)
+    }
+    return {
+      handleSelectionChange
+    }
   }
 })
 </script>
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+.header {
+  display: flex;
+  height: 45px;
+  padding: 0 5px;
+  justify-content: space-between;
+  align-items: center;
+
+  .title {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .handler {
+    align-items: center;
+  }
+}
+
+.footer {
+  margin-top: 15px;
+
+  .el-pagination {
+    justify-content: flex-end;
+  }
+}
+</style>
