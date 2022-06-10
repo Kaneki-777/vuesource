@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-09 10:09:32
- * @LastEditTime: 2022-06-09 22:18:34
+ * @LastEditTime: 2022-06-10 11:06:07
 -->
 <template>
   <div class="page-content">
@@ -14,7 +14,7 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="small">新建</el-button>
+        <el-button type="primary" size="small" v-if="isCreate">新建</el-button>
       </template>
       <!-- 2.列中的插槽 -->
       <template #status="scope">
@@ -28,11 +28,17 @@
       <template #updateAt="scope">
         <span>{{ $filter.formatTime(scope.row.updateAt) }}</span>
       </template>
-      <template #handler>
-        <el-button size="small" type="primary" link>
+      <template #handler="scope">
+        <el-button v-if="isUpdate" size="small" type="primary" link>
           <el-icon><Edit /></el-icon>编辑
         </el-button>
-        <el-button size="small" type="primary" link>
+        <el-button
+          v-if="isDelete"
+          size="small"
+          type="primary"
+          link
+          @click="handleDeleteClick(scope.row)"
+        >
           <el-icon><Delete /></el-icon>删除
         </el-button>
       </template>
@@ -54,6 +60,7 @@
 <script lang="ts">
 import { defineComponent, computed, watch, ref } from 'vue'
 import { useStore } from '@/store'
+import { usePermisson } from '@/hooks/use-permission'
 
 import HyTable from '@/base-ui/table'
 
@@ -78,19 +85,23 @@ export default defineComponent({
   setup(props) {
     const store = useStore()
 
+    // 0.获取操作权限
+    const isCreate = usePermisson(props.pageName as any, 'create')
+    const isUpdate = usePermisson(props.pageName as any, 'update')
+    const isDelete = usePermisson(props.pageName as any, 'delete')
+    const isQuery = usePermisson(props.pageName as any, 'query')
+
     // 1.双向绑定pageInfo
     const pageInfo = ref({ currentPage: 1, pageSize: 10 })
     watch(pageInfo, () => getPageData())
 
+    // 2.发送网络请求
     const getPageData = (queryInfo: any = {}) => {
-      console.log(pageInfo.value.currentPage)
-
+      if (!isQuery) return
       store.dispatch('system/getPageListAction', {
         pageName: props.pageName,
         queryInfo: {
           offset: (pageInfo.value.currentPage - 1) * pageInfo.value.pageSize,
-          // offset: pageInfo.value.currentPage,
-
           size: pageInfo.value.pageSize,
           ...queryInfo
         }
@@ -118,12 +129,30 @@ export default defineComponent({
         return true
       }
     )
+
+    // 5.删除/编辑/新建操作
+    const handleDeleteClick = (item: any) => {
+      console.log(item)
+      // store.dispatch('system/deletePageDataAction', {
+      //   pageName: props.pageName,
+      //   id: item.id
+      // })
+      store.dispatch('system/deletePageDataAction', {
+        pageName: props.pageName,
+        id: item.id
+      })
+    }
     return {
       dataList,
       getPageData,
       dataCount,
       pageInfo,
-      otherPropSlots
+      otherPropSlots,
+      isCreate,
+      isUpdate,
+      isDelete,
+      isQuery,
+      handleDeleteClick
     }
   }
 })

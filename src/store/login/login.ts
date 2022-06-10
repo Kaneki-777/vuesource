@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-05 10:08:41
- * @LastEditTime: 2022-06-07 11:37:10
+ * @LastEditTime: 2022-06-10 10:03:10
  */
 import { Module } from 'vuex'
 
@@ -16,7 +16,7 @@ import { IAccount } from '@/service/login/type'
 import { ILoginState } from './types'
 import { IRootState } from '../types'
 import localCache from '@/utils/cache'
-import { mapMenusToRoutes } from '@/utils/map-menus'
+import { mapMenusToRoutes, mapMenusToPermissions } from '@/utils/map-menus'
 import router from '@/router'
 const loginModule: Module<ILoginState, IRootState> = {
   namespaced: true,
@@ -43,6 +43,10 @@ const loginModule: Module<ILoginState, IRootState> = {
       routes.forEach((route) => {
         router.addRoute('main', route)
       })
+
+      // 获取用户按钮权限（十最后）
+      const permissions = mapMenusToPermissions(userMenus)
+      state.permissions = permissions
     }
   },
   getters: {},
