@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 15:02:26
- * @LastEditTime: 2022-06-09 22:46:40
+ * @LastEditTime: 2022-06-12 21:05:36
 -->
 <template>
   <div class="hy-form">
@@ -14,6 +14,7 @@
         <template v-for="item in formItems" :key="item.label">
           <el-col v-bind="colLayout">
             <el-form-item
+              v-if="!item.isHidden"
               :label="item.label"
               :rules="item.rules"
               :style="itemStyle"
@@ -40,7 +41,7 @@
                   :placeholder="item.placeholder"
                   v-bind="item.otherOptions"
                   style="width: 100%"
-                  v:model-value="modelValue[`${item.field}`]"
+                  :model-value="modelValue[`${item.field}`]"
                   @update:modelValue="handleValueChange($event, item.field)"
                 >
                   <el-option

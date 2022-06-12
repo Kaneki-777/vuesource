@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-09 10:09:32
- * @LastEditTime: 2022-06-10 11:06:07
+ * @LastEditTime: 2022-06-11 11:06:05
 -->
 <template>
   <div class="page-content">
@@ -14,7 +14,13 @@
     >
       <!-- 1.header中的插槽 -->
       <template #headerHandler>
-        <el-button type="primary" size="small" v-if="isCreate">新建</el-button>
+        <el-button
+          type="primary"
+          size="small"
+          v-if="isCreate"
+          @click="handleNewClick"
+          >新建</el-button
+        >
       </template>
       <!-- 2.列中的插槽 -->
       <template #status="scope">
@@ -29,7 +35,13 @@
         <span>{{ $filter.formatTime(scope.row.updateAt) }}</span>
       </template>
       <template #handler="scope">
-        <el-button v-if="isUpdate" size="small" type="primary" link>
+        <el-button
+          v-if="isUpdate"
+          size="small"
+          type="primary"
+          link
+          @click="handleEditClick(scope.row)"
+        >
           <el-icon><Edit /></el-icon>编辑
         </el-button>
         <el-button
@@ -82,7 +94,8 @@ export default defineComponent({
     Edit,
     Delete
   },
-  setup(props) {
+  emits: ['newBtnClick', 'editBtnClick'],
+  setup(props, { emit }) {
     const store = useStore()
 
     // 0.获取操作权限
@@ -142,6 +155,13 @@ export default defineComponent({
         id: item.id
       })
     }
+
+    const handleNewClick = () => {
+      emit('newBtnClick')
+    }
+    const handleEditClick = (item: any) => {
+      emit('editBtnClick', item)
+    }
     return {
       dataList,
       getPageData,
@@ -152,7 +172,9 @@ export default defineComponent({
       isUpdate,
       isDelete,
       isQuery,
-      handleDeleteClick
+      handleDeleteClick,
+      handleNewClick,
+      handleEditClick
     }
   }
 })

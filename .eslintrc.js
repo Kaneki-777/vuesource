@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 08:54:17
- * @LastEditTime: 2022-06-08 10:39:52
+ * @LastEditTime: 2022-06-12 18:19:30
  */
 module.exports = {
   root: true,
@@ -23,6 +23,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/multi-word-component-names': 0,
     '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/no-var-requires': 0
+    '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/no-non-null-assertion': 'off'
   }
 }
