@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 12:25:28
- * @LastEditTime: 2022-06-07 12:37:38
+ * @LastEditTime: 2022-06-13 09:11:44
 -->
 <template>
   <div class="user-info">
@@ -20,7 +20,7 @@
             <el-icon><Apple /></el-icon>登录</el-dropdown-item
           >
           <el-dropdown-item>用户信息</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click="handleExitClick">退出</el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
@@ -31,6 +31,10 @@
 import { computed, defineComponent } from 'vue'
 import { Apple } from '@element-plus/icons-vue'
 import { useStore } from '@/store'
+
+import localCache from '@/utils/cache'
+import router from '@/router'
+
 export default defineComponent({
   name: 'user-info',
   components: {
@@ -39,8 +43,14 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const name = computed(() => store.state.login.userInfo.name)
+
+    const handleExitClick = () => {
+      localCache.deleteCache('token')
+      router.push('/main')
+    }
     return {
-      name
+      name,
+      handleExitClick
     }
   }
 })

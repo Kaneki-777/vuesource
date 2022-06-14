@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 10:15:29
- * @LastEditTime: 2022-06-10 09:56:04
+ * @LastEditTime: 2022-06-13 11:49:27
  */
 import { RouteRecordRaw } from 'vue-router'
 import { IBreadcrumb } from '@/base-ui/breadcrumb'
@@ -85,6 +85,22 @@ export function mapMenusToPermissions(userMenus: any[]) {
   _recurseGetPermission(userMenus)
 
   return permission
+}
+
+export function menuMapLeafKeys(menuList: any[]) {
+  const leftKeys: number[] = []
+  const _recurseGetLeaf = (menuList: any[]) => {
+    for (const menu of menuList) {
+      if (menu.children) {
+        _recurseGetLeaf(menu.children)
+      } else {
+        leftKeys.push(menu.id)
+      }
+    }
+  }
+  _recurseGetLeaf(menuList)
+
+  return leftKeys
 }
 
 export { firstMenu }

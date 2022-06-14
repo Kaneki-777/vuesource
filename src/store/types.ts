@@ -12,6 +12,7 @@ export interface IRootState {
   age: number
   entireDepartment: any[]
   entireRole: any[]
+  entireMenu: any[]
 }
 export interface IRootWithModule {
   login: ILoginState

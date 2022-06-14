@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-11 10:53:24
- * @LastEditTime: 2022-06-12 21:31:05
+ * @LastEditTime: 2022-06-13 15:57:30
 -->
 <template>
   <div class="page-modal">
@@ -14,6 +14,7 @@
       destroy-on-close
     >
       <hy-form v-bind="modalConfig" v-model="formData"></hy-form>
+      <slot></slot>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="dialogVisible = false">取消</el-button>
@@ -44,6 +45,10 @@ export default defineComponent({
     pageName: {
       type: String,
       require: true
+    },
+    otherInfo: {
+      type: Object,
+      default: () => ({})
     }
   },
   components: {
@@ -56,8 +61,6 @@ export default defineComponent({
     watch(
       () => props.defaultInfo,
       (newValue) => {
-        console.log(props.modalConfig.f)
-
         for (const item of props.modalConfig.formItems) {
           formData.value[`${item.field}`] = newValue[`${item.field}`]
         }
@@ -72,14 +75,14 @@ export default defineComponent({
         console.log('编辑用户')
         store.dispatch('system/editPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value },
+          editData: { ...formData.value, ...props.otherInfo },
           id: props.defaultInfo.id
         })
       } else {
         console.log('新建用户')
         store.dispatch('system/createPageDataAction', {
           pageName: props.pageName,
-          newData: { ...formData.value }
+          newData: { ...formData.value, ...props.otherInfo }
         })
       }
     }
