@@ -2,11 +2,12 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-07 10:15:29
- * @LastEditTime: 2022-06-13 11:49:27
+ * @LastEditTime: 2022-06-20 21:23:47
  */
 import { RouteRecordRaw } from 'vue-router'
 import { IBreadcrumb } from '@/base-ui/breadcrumb'
 
+//重定向到main直接重定向到firstMenu
 let firstMenu: any = null
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -20,12 +21,15 @@ export function mapMenusToRoutes(userMenus: any[]): RouteRecordRaw[] {
     const route = require('../router/main' + key.split('.')[1])
     allRoutes.push(route.default)
   })
+  console.log(allRoutes)
 
   // 2.根据菜单获取需要添加的routes
   // userMenus:
   // type === 1 -> children -> type === 1
   // type === 2 -> url -> route
   const _recurseGetRoute = (menus: any[]) => {
+    console.log(menus, 'menu')
+
     for (const menu of menus) {
       if (menu.type === 2) {
         const route = allRoutes.find((route) => route.path === menu.url)

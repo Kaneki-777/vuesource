@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-05 11:26:57
- * @LastEditTime: 2022-06-08 15:45:36
+ * @LastEditTime: 2022-06-20 21:03:38
  */
 import hyRequest from '../index'
 import { IAccount, ILoginResult } from './type'
@@ -22,6 +22,8 @@ export function accountLoginRequest(account: IAccount) {
 }
 
 export function requestUserInfoById(id: number) {
+  console.log(LoginAPI.LoginUserInfo + id, 'asdasd')
+  //  /users/22
   return hyRequest.get<IDataType>({
     url: LoginAPI.LoginUserInfo + id,
     showLoading: false
@@ -29,6 +31,7 @@ export function requestUserInfoById(id: number) {
 }
 
 export function requestUserMenusByRoleId(id: number) {
+  //   /role/22/menu
   return hyRequest.get<IDataType>({
     url: LoginAPI.UserMenus + id + '/menu',
     showLoading: false

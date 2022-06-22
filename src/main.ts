@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-05-29 08:54:17
- * @LastEditTime: 2022-06-09 18:01:22
+ * @LastEditTime: 2022-06-20 08:41:10
  */
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
@@ -58,3 +58,4 @@ app.mount('#app')
 //     // console.log(res.returnCode)
 //     console.log(res.success)
 //   })
+console.log(process.env.NODE_ENV)

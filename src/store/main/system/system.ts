@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-08 14:57:22
- * @LastEditTime: 2022-06-12 21:32:19
+ * @LastEditTime: 2022-06-20 20:19:30
  */
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
@@ -130,6 +130,7 @@ const systemModule: Module<ISystemState, IRootState> = {
     async createPageDataAction({ dispatch }, payload: any) {
       // 1.创建数据的请求
       const { pageName, newData } = payload
+      console.log(newData, 'newData')
       const pageUrl = `/${pageName}`
       await createPageData(pageUrl, newData)
 
