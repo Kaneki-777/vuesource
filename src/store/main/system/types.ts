@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-08 14:59:13
- * @LastEditTime: 2022-06-09 22:45:50
+ * @LastEditTime: 2022-06-22 08:59:24
  */
 export interface ISystemState {
   usersList: any[]
@@ -13,4 +13,6 @@ export interface ISystemState {
   goodsCount: number
   menuList: any[]
   menuCount: number
+  departmentList: any[]
+  departmentCount: number
 }

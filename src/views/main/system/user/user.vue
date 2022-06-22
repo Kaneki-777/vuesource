@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-06 19:04:39
- * @LastEditTime: 2022-06-13 15:58:21
+ * @LastEditTime: 2022-06-22 10:08:48
 -->
 <template>
   <div class="user">
@@ -70,10 +70,10 @@ export default defineComponent({
     // 2.动态添加部门和角色列表
     const store = useStore()
     const modalConfigRef = computed(() => {
-      const depaetmentItem = modalConfig.formItems.find(
+      const departmentItem = modalConfig.formItems.find(
         (item) => item.field === 'departmentId'
       )
-      depaetmentItem!.options = store.state.entireDepartment.map((item) => {
+      departmentItem!.options = store.state.entireDepartment.map((item) => {
         return { title: item.name, value: item.id }
       })
       const roleItem = modalConfig.formItems.find(

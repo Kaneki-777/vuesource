@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-12 17:35:53
- * @LastEditTime: 2022-06-13 11:38:39
+ * @LastEditTime: 2022-06-22 10:08:24
  */
 import { ref } from 'vue'
 import PageModal from '@/components/page-modal'
@@ -14,7 +14,6 @@ export function usePageModal(newCb?: CallbackFn, editCb?: CallbackFn) {
   const defaultInfo = ref({})
   const handleNewData = () => {
     console.log('新建')
-
     defaultInfo.value = {}
     if (pageModalRef.value) {
       pageModalRef.value.dialogVisible = true

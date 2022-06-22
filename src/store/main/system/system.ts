@@ -2,7 +2,7 @@
  * @Desc:
  * @version:
  * @Date: 2022-06-08 14:57:22
- * @LastEditTime: 2022-06-20 20:19:30
+ * @LastEditTime: 2022-06-22 09:01:53
  */
 import { Module } from 'vuex'
 import { IRootState } from '@/store/types'
@@ -26,7 +26,9 @@ const systemModule: Module<ISystemState, IRootState> = {
       goodsList: [],
       goodsCount: 0,
       menuList: [],
-      menuCount: 0
+      menuCount: 0,
+      departmentList: [],
+      departmentCount: 0
     }
   },
   mutations: {
@@ -53,6 +55,12 @@ const systemModule: Module<ISystemState, IRootState> = {
     },
     changeMenuCount(state, count: number) {
       state.menuCount = count
+    },
+    changeDepartmentList(state, list: any[]) {
+      state.departmentList = list
+    },
+    changeDepartmentCount(state, count: number) {
+      state.departmentCount = count
     }
   },
   getters: {
